@@ -1,116 +1,140 @@
-/* button.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  text-align: left;
-  border: none;
-  outline: none;
-  transition: 0.4s;
+body {
+  background-color: rgb(244, 244, 234);
 }
 
-div.panel {
+.accordion {
+  padding: 1em;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.accordionInput {
+  appearance: none;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.accordionTitle {
+  color: #000;
+  display: block;
+  font-weight: 600;
+  padding: 1em;
+  transition: all 0.7s ease-out;
+}
+
+.panel:active {
+  opacity: 0.85;
+}
+.panel:not(:last-child) {
+  border-bottom: 0.1em solid rgba(87, 82, 82, 0.6);
+  margin: 0 0 0.4em 0;
+  transition: 0.9s;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.plus {
+  visibility: hidden;
+  font-size: 2em;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.accordionImage {
   text-align: center;
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.3s;
   cursor: pointer;
-  padding: 0 18px;
-  background-color: white;
-}
- */
-
- body {background: #e0e3ec url(http://netcribe.com/example/bgnoise_lg.jpg) repeat top left;}
-.accordion{
-    width: 900px;
-    margin: 10px auto 30px auto;
 }
 
-.accordion label{
-    font-family: 'Arial Narrow', Arial, sans-serif;
-    padding: 5px 20px;
-    position: relative;
-    z-index: 20;
-    display: block;
-    height: 30px;
-    cursor: pointer;
-    color: #777;
-    text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
-    line-height: 33px;
-    font-size: 19px;
-    background: -moz-linear-gradient(top, #ffffff 1%, #eaeaea 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffffff), color-stop(100%,#eaeaea));
-    background: -webkit-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
-    background: -o-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
-    background: -ms-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
-    background: linear-gradient(top, #ffffff 1%,#eaeaea 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=0 );
-    box-shadow: 
-        0px 0px 0px 1px rgba(155,155,155,0.3), 
-        1px 0px 0px 0px rgba(255,255,255,0.9) inset, 
-        0px 2px 2px rgba(0,0,0,0.1);
-}
+.accordionImage img {
+  max-width: 40%;
+  padding: 1em;
 }
 
-.accordion label:hover{
-    background: #fff;
+.accordionInput:checked + label > .accordionImage {
+  max-height: 100em;
+  transition: 1.2s;
 }
 
-.accordion input:checked + label,
-.accordion input:checked + label:hover{
-    background: #c6e1ec;
-    color: #3d7489;
-    text-shadow: 0px 1px 1px rgba(255,255,255, 0.6);
-    box-shadow: 
-        0px 0px 0px 1px rgba(155,155,155,0.3), 
-        0px 2px 2px rgba(0,0,0,0.1);
+.accordionInput:checked + label > .row > .plus {
+  transform: rotate(45deg);
 }
 
-.accordion label:hover:after,
-.accordion input:checked + label:hover:after{
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    right: 13px;
-    top: 7px;
-    background: transparent url(http://netcribe.com/example/arrow_down.png) no-repeat center center;  
+@media (hover: hover) {
+  .accordion:hover > .panel > label > .row > .plus {
+    visibility: visible;
+  }
+  .panel:hover > label > .accordionImage {
+    max-height: 100em;
+    transition: 1.2s;
+  }
+  .panel:hover > label > .row > .plus {
+    transform: rotate(45deg);
+    transition: all 0.33s;
+  }
 }
 
-.accordion input:checked + label:hover:after {
-    background-image: url(http://netcribe.com/example/arrow_up.png);
+@media (hover: none) {
 }
 
-.accordion input{
-    display: none;
+@media (320px <= width <= 425px) {
+  .accordion {
+    font-size: 0.8em;
+    padding: 0.1em;
+    transition: all 0.7s ease-out;
+  }
+  .accordionImage img {
+    max-width: 55%;
+    padding: 1em;
+  }
 }
 
-.accordion article{
-    background: rgba(255, 255, 255, 0.5);
-    margin-top: -1px;
-    overflow: hidden;
-    height: 0px;
-    position: relative;
-    z-index: 10;
-    -webkit-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    -moz-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    -o-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    -ms-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+@media (width > 1024px) {
+  .accordion {
+    max-width: 50%;
+  }
+  .accordionTitle {
+    font-size: 1.1em;
+    padding: 0.1em;
+    transition: all 0.7s ease-out;
+  }
+  .accordionImage img {
+    max-width: 40%;
+    padding: 1.1em;
+  }
 }
-.accordion input:checked ~ article {
-     -webkit-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    -moz-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    -o-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    -ms-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    box-shadow: 0px 0px 0px 1px rgba(155,155,155,0.3);
-    height: 100px;
+@media (820px < width <= 1024px) {
+  .accordion {
+    max-width: 65%;
+  }
+  .accordionTitle {
+    font-size: 1em;
+    padding: 0.1em;
+    transition: all 0.5s ease-out;
+  }
+  .accordionImage img {
+    max-width: 45%;
+    padding: 1em;
+  }
 }
-
-.accordion article p{
-    font-style: italic;
-    color: #777;
-    line-height: 23px;
-    font-size: 14px;
-    padding: 20px;
-    text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+@media (425px < width <= 820px) {
+  .accordion {
+    max-width: 80%;
+  }
+  .accordionTitle {
+    font-size: 0.9em;
+    padding: 0.1em;
+    transition: all 0.5s ease-out;
+  }
+  .accordionImage img {
+    max-width: 50%;
+    padding: 1em;
+  }
 }
